@@ -7,7 +7,7 @@ SRC_DIR   := src
 TEST_DIR  := tests
 BUILD_DIR := out
 
-APP_BIN   := $(BUILD_DIR)/stateful-service
+APP_BIN   := $(BUILD_DIR)/engine-service
 TEST_BIN  := $(BUILD_DIR)/run_tests
 
 # Sources shared between the app and the tests (everything except main.cpp)
