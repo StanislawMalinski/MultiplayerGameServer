@@ -47,7 +47,7 @@ engine, in-memory, latency-sensitive. Owns live gameplay.
 - **Redis Event Bus** — pub/sub used for *coordination* events (player availability, match found, chat). All channels/keys are namespaced by `matchId` from day one, even though the POC only ever has one match.
 - **Lobby** — matches available players and hands off to a new `Match`; deliberately kept separate from the `Match` itself (produces matches, isn't one)
 - **Match** — holds game state and *direct* `Connection` references for both players. This is intentional: the event bus handles coordination, but gameplay moves go straight through the connection for minimum latency.
-- **PersistenceEnsurer** — on match completion, calls `crud-service` to persist the result, with retry/backoff on failure
+- **PersistenceLayer** — on match completion, calls `crud-service` to persist the result, with retry/backoff on failure
 
 See [`docs/backlog.md`](./backlog.md) for the full task breakdown and current scope.
 
@@ -58,7 +58,7 @@ See [`docs/backlog.md`](./backlog.md) for the full task breakdown and current sc
 - **EventBus vs. direct Connection.** These are two deliberately different communication paths, not an inconsistency: the event bus (Redis pub/sub) is for low-frequency coordination (lobby, matchmaking, chat); `Match` talks to `Connection` objects directly for the gameplay hot path. This is documented explicitly because it's the one part of the design that could otherwise look accidental.
 - **matchId everywhere.** Even with capacity for exactly one match, every event, channel, and log line is keyed by `matchId`. Capacity is capped at 1; identity/keying is not — that's what keeps a future multi-match upgrade from being a rewrite.
 - **Concurrency per match.** Each `Match` is intended to run against a single-threaded executor (actor-style) rather than relying on scattered `synchronized` blocks, to avoid race conditions when both players submit moves near-simultaneously.
-- **Persistence ownership.** `crud-service` is the only writer to Postgres. `engine-service` never touches the DB directly — it calls `crud-service`'s API via `PersistenceEnsurer` when a match ends.
+- **Persistence ownership.** `crud-service` is the only writer to Postgres. `engine-service` never touches the DB directly — it calls `crud-service`'s API via `PersistenceLayer` when a match ends.
 
 ---
 
@@ -114,6 +114,9 @@ These are tracked as explicit future work in the backlog, not silent gaps.
 
 ### Running everything via Docker Compose
 ---
+```
+docker compose up
+```
 
 ## Roadmap
 

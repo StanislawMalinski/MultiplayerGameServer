@@ -1,0 +1,44 @@
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - ${REDIS_PORT}:6379
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  engine-service:
+    build: ./engine-service/.
+    ports:
+      - "${ENGINE_SERVICE_PORT}:8081"
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:bookworm
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  crud-service:
+    build: ./crud-service/.
+    ports:
+      - "${CRUD_SERVICE_PORT}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+  

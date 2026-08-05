@@ -12,13 +12,13 @@ Priority key: **P0** = needed for POC to function at all · **P1** = important, 
 ---
 
 ## Epic 0 — Foundations & Repo Setup
-| # | Story | Priority |
-|---|---|---|
-| 0.1 | Set up multi-module project structure (`crud-service`, `stateful-service`, shared `common` module for DTOs/events) | P0 |
-| 0.2 | Set up shared build tooling (Gradle/Maven, consistent Java version, linting/formatting) | P0 |
-| 0.3 | Docker Compose for local dev: Postgres, Redis, both services | P0 |
-| 0.4 | Basic CI pipeline (build + test on push) | P1 |
-| 0.5 | README documenting architecture, the EventBus-vs-direct-Connection split, and known POC limitations | P1 |
+| # | Story | Priority | Status|
+|---|---|---|---|
+| 0.1 | Set up multi-module project structure (`crud-service`, `stateful-service`, shared `common` module for DTOs/events) | P0 | Done |
+| 0.2 | Set up shared build tooling (Gradle/Maven, consistent Java version, linting/formatting) | P0 | Done |
+| 0.3 | Docker Compose for local dev: Postgres, Redis, both services | P0 | Done |
+| 0.4 | Basic CI pipeline (build + test on push) | P1 | In progress |
+| 0.5 | README documenting architecture, the EventBus-vs-direct-Connection split, and known POC limitations | P1 | In progress |
 
 ---
 
