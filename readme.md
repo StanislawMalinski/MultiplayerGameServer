@@ -59,7 +59,7 @@ See [`docs/backlog.md`](./backlog.md) for the full task breakdown and current sc
 - **matchId everywhere.** Even with capacity for exactly one match, every event, channel, and log line is keyed by `matchId`. Capacity is capped at 1; identity/keying is not — that's what keeps a future multi-match upgrade from being a rewrite.
 - **Concurrency per match.** Each `Match` is intended to run against a single-threaded executor (actor-style) rather than relying on scattered `synchronized` blocks, to avoid race conditions when both players submit moves near-simultaneously.
 - **Persistence ownership.** `crud-service` is the only writer to Postgres. `engine-service` never touches the DB directly — it calls `crud-service`'s API via `PersistenceLayer` when a match ends.
-
+- **Semistructured data in realtional database.** The data like `GamePlayout` is type of data that size naturally varies. For now I conciously choose to use poostgres to store this type of data. However it's not given that I won't adapt project so that it uses a document based database like MongoDB. 
 ---
 
 ## Known POC limitations (intentional, not oversights)

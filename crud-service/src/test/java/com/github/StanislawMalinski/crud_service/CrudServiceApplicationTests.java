@@ -1,4 +1,4 @@
-package com.github.StanislawMalinski.crud_service;
+package com.github.stanislawmalinski.crud_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

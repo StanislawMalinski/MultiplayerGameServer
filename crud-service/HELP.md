@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.github.StanislawMalinski.crud-service' is invalid and this project uses 'com.github.StanislawMalinski.crud_service' instead.
+* The original package name 'com.github.stanislawmalinski.crud-service' is invalid and this project uses 'com.github.stanislawmalinski.crud_service' instead.
 
 # Getting Started
 

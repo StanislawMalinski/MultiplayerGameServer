@@ -12,7 +12,7 @@ Priority key: **P0** = needed for POC to function at all · **P1** = important, 
 ---
 
 ## Epic 0 — Foundations & Repo Setup
-| # | Story | Priority | Status|
+| # | Story | Priority | Status |
 |---|---|---|---|
 | 0.1 | Set up multi-module project structure (`crud-service`, `stateful-service`, shared `common` module for DTOs/events) | P0 | Done |
 | 0.2 | Set up shared build tooling (Gradle/Maven, consistent Java version, linting/formatting) | P0 | Done |
@@ -23,10 +23,10 @@ Priority key: **P0** = needed for POC to function at all · **P1** = important, 
 ---
 
 ## Epic 1 — CRUD Service: Users
-| # | Story | Priority |
-|---|---|---|
-| 1.1 | User entity + Postgres schema (id, username, email, created_at) | P0 |
-| 1.2 | Create user endpoint (POST /users) with validation | P0 |
+| # | Story | Priority | Status |
+|---|---|---|---|
+| 1.1 | User entity + Postgres schema (id, username, email, created_at) | P0 | Done |
+| 1.2 | Create user endpoint (POST /users) with validation | P0 | Done |
 | 1.3 | Get user by id / list users endpoints | P0 |
 | 1.4 | Update / delete user endpoints | P1 |
 | 1.5 | Basic auth (e.g. simple token or session) so a websocket connection can be tied to a User identity | P0 |
