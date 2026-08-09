@@ -1,11 +1,11 @@
 package com.github.stanislawmalinski.crud_service.response;
 
-public class NicknameAlreadyExistsExp extends Throwable {
-    public NicknameAlreadyExistsExp(String errMsg){
+public class ExpNicknameAlreadyExists extends Throwable {
+    public ExpNicknameAlreadyExists(String errMsg){
         super(errMsg);
     }
 
-    public NicknameAlreadyExistsExp(){
+    public ExpNicknameAlreadyExists(){
         super("User with this nickname already exists");
     }
 }
