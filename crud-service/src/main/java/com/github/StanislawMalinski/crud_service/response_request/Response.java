@@ -1,6 +1,5 @@
-package com.github.stanislawmalinski.crud_service.response;
+package com.github.stanislawmalinski.crud_service.response_request;
 
-import com.github.stanislawmalinski.crud_service.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Response<T>{
     public static final String OK = "OK";
     public static final String FAILED = "FAILED";
-    private String status = OK;
+    private String status;
     private String message;
     private T data;
     private Object metadata;

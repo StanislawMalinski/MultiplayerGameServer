@@ -1,11 +1,11 @@
 spring:
   application:
     name: crud-service
-  
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/mydatabase
-    username: myuser
-    password: mypassword
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mydatabase}
+    username: ${DB_USER:myuser}
+    password: ${DB_PASSWORD:mypassword}
     driver-class-name: org.postgresql.Driver # Spring Boot can infer this from the URL
 
   jpa:
@@ -15,3 +15,17 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  mode: dev
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:VeryInterestingAndSafeSecretSoPleaseDoNotRememberWhateverHereIsShhhh}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}

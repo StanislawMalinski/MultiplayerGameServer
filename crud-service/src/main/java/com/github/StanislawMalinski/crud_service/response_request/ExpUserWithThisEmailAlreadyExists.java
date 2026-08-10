@@ -1,4 +1,4 @@
-package com.github.stanislawmalinski.crud_service.response;
+package com.github.stanislawmalinski.crud_service.response_request;
 
 public class ExpUserWithThisEmailAlreadyExists extends Throwable {
     public ExpUserWithThisEmailAlreadyExists(String errorMsg){

@@ -1,4 +1,4 @@
-package com.github.stanislawmalinski.crud_service.response;
+package com.github.stanislawmalinski.crud_service.response_request;
 
 public class ExpUserDoesNotExists extends Throwable {
     public ExpUserDoesNotExists(String errorMsg){

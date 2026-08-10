@@ -1,7 +1,7 @@
 package com.github.stanislawmalinski.crud_service.controllers;
 
 import com.github.stanislawmalinski.crud_service.models.User;
-import com.github.stanislawmalinski.crud_service.response.*;
+import com.github.stanislawmalinski.crud_service.response_request.*;
 import com.github.stanislawmalinski.crud_service.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -35,15 +35,15 @@ public class UserController {
         return ResponseEntity.ok(resp);
     }
 
-    @GetMapping(path = "/nickname/{nickName}", produces = "application/json")
-    public ResponseEntity<@NonNull Response<Page<UserResponse>>> getUserByName(@PathVariable String nickName){
-        return getUserByName(nickName, 0);
+    @GetMapping(path = "/username/{username}", produces = "application/json")
+    public ResponseEntity<@NonNull Response<Page<UserResponse>>> getUserByName(@PathVariable String username){
+        return getUserByName(username, 0);
     }
 
-    @GetMapping(path = "/nickname/{nickName}/{page}", produces = "application/json")
-    public ResponseEntity<@NonNull Response<Page<UserResponse>>> getUserByName(@PathVariable String nickName, @PathVariable int page){
+    @GetMapping(path = "/username/{username}/{page}", produces = "application/json")
+    public ResponseEntity<@NonNull Response<Page<UserResponse>>> getUserByName(@PathVariable String username, @PathVariable int page){
         Pageable p = PageRequest.of(page,10);
-        Page<User> users = service.getUserByNickName(nickName, p);
+        Page<User> users = service.getUserByUsername(username, p);
         Response<Page<UserResponse>> res = new Response<>(
                 "ok",
                 null,
@@ -51,25 +51,6 @@ public class UserController {
                 null
         );
         return ResponseEntity.ok(res);
-    }
-
-    @PostMapping(path = "/register", produces = "application/json")
-    public ResponseEntity<@NonNull Response<UserResponse>> createNewUser(@RequestBody User user){
-        Response<UserResponse> resp = Response.of(UserResponse.from(user));
-
-        HttpStatus code;
-        try {
-            UserResponse newUser = service.createNewUser(user);
-            resp.setData(newUser);
-            code = HttpStatus.CREATED;
-        } catch (ExpUserWithThisEmailAlreadyExists | ExpNicknameAlreadyExists e){
-            resp.setMessage(e.getMessage());
-            resp.setStatus(Response.FAILED);
-            code = HttpStatus.CONFLICT;
-        }
-        return ResponseEntity
-                .status(code)
-                .body(resp);
     }
 
     @PostMapping(path = "/update", produces = "application/json")

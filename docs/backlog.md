@@ -26,11 +26,11 @@ Priority key: **P0** = needed for POC to function at all · **P1** = important, 
 | # | Story | Priority | Status |
 |---|---|---|---|
 | 1.1 | User entity + Postgres schema (id, username, email, created_at) | P0 | Done |
-| 1.2 | Create user endpoint (POST /users) with validation | P0 | Done|
-| 1.3 | Get user by id / list users endpoints | P0 | Done|
-| 1.4 | Update / delete user endpoints | P1 | Done|
-| 1.5 | Basic auth (e.g. simple token or session) so a websocket connection can be tied to a User identity | P0 |
-| 1.6 | Password hashing / credential storage (if auth is username+password rather than external IdP) | P1 |
+| 1.2 | Create user endpoint (POST /users) with validation | P0 | Done |
+| 1.3 | Get user by id / list users endpoints | P0 | Done |
+| 1.4 | Update / delete user endpoints | P1 | Done |
+| 1.5 | Basic auth (e.g. simple token or session) so a websocket connection can be tied to a User identity | P0 |  Done |
+| 1.6 | Password hashing / credential storage (if auth is username+password rather than external IdP) | P1 | Done |
 
 ## Epic 2 — CRUD Service: Games & Match History
 | # | Story | Priority |

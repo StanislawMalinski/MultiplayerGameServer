@@ -1,4 +1,4 @@
-package com.github.stanislawmalinski.crud_service.response;
+package com.github.stanislawmalinski.crud_service.response_request;
 
 import com.github.stanislawmalinski.crud_service.models.Role;
 import com.github.stanislawmalinski.crud_service.models.User;
@@ -12,7 +12,7 @@ import java.util.Date;
 @Builder
 public class UserResponse {
     private Long id;
-    private String nickName;
+    private String username;
     private String email;
     private Role role;
     private Long eloRating;
@@ -22,7 +22,7 @@ public class UserResponse {
     public static UserResponse from(User user){
         return builder()
                 .id(user.getId())
-                .nickName(user.getNickName())
+                .username(user.getUsername())
                 .email(user.getEmail())
                 .role(user.getRole())
                 .eloRating(user.getEloRating())
@@ -33,5 +33,17 @@ public class UserResponse {
 
     public static Page<UserResponse> from(Page<User> users){
         return users.map(UserResponse::from);
+    }
+
+    public User getUser() {
+        return User.builder()
+                .id(this.getId())
+                .username(this.getUsername())
+                .email(this.getEmail())
+                .role(this.getRole())
+                .eloRating(this.getEloRating())
+                .signedUpDate(this.getSignedUpDate())
+                .lastSeen(this.getLastSeen())
+                .build();
     }
 }
