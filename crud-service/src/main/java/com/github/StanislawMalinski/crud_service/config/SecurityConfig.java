@@ -37,7 +37,8 @@ public class SecurityConfig {
     );
     private final List<String> noAuthenticatedPathDev = List.of(
             "/swagger-ui/**",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
+            "/api/**"
     );
 
     public SecurityConfig(

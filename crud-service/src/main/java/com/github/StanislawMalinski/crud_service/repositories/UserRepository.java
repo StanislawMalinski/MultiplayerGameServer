@@ -3,6 +3,7 @@ package com.github.stanislawmalinski.crud_service.repositories;
 import com.github.stanislawmalinski.crud_service.models.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
@@ -11,4 +12,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findByEmail(String email);
     boolean existsByEmail(String email);
     boolean existsByUsername(String username);
+    User getReferenceById(Long id);
 }
