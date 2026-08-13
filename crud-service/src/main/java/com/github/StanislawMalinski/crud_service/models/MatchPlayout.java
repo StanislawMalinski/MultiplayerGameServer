@@ -1,10 +1,10 @@
 package com.github.stanislawmalinski.crud_service.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 
+@Data
 @Entity
-@Getter
 @Table(name="MatchPlayouts")
 public class MatchPlayout {
     @Id

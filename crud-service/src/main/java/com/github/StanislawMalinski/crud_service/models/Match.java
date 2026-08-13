@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.Date;
+
 
 @Data
 @Getter
@@ -19,8 +21,9 @@ public class Match {
     @ManyToOne(fetch = FetchType.LAZY)
     private User opponent;
     private int eloDifference;
-    @OneToOne
-    private MatchPlayout matchReference;
+    @ManyToOne( fetch = FetchType.LAZY)
+    private MatchPlayout matchPlayout;
+    private Date playedOut;
     private String timeFormat;
     @ManyToOne
     @JoinColumn(name = "game_id")

@@ -7,7 +7,8 @@ public record MatchDTO( Long matchId,
                         Long opponentId,
                         int eloDifference,
                         String timeFormat,
-                        Long gameId){
+                        Long gameId,
+                        Long matchPlayout){
 
     public static MatchDTO toDto(Match match) {
         return new MatchDTO(
@@ -16,7 +17,8 @@ public record MatchDTO( Long matchId,
             match.getOpponent().getId(),
             match.getEloDifference(),
             match.getTimeFormat(),
-            match.getGame().getId()
+            match.getGame().getId(),
+            match.getMatchPlayout().getId()
         );
     }
 }

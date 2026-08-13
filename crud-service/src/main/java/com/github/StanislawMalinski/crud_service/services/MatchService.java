@@ -1,8 +1,10 @@
 package com.github.stanislawmalinski.crud_service.services;
 
 import com.github.stanislawmalinski.crud_service.models.Match;
+import com.github.stanislawmalinski.crud_service.models.MatchPlayout;
 import com.github.stanislawmalinski.crud_service.models.User;
 import com.github.stanislawmalinski.crud_service.repositories.GameRepository;
+import com.github.stanislawmalinski.crud_service.repositories.MatchPlayoutRepository;
 import com.github.stanislawmalinski.crud_service.repositories.MatchRepository;
 import com.github.stanislawmalinski.crud_service.repositories.UserRepository;
 import com.github.stanislawmalinski.crud_service.response_request.ExpMatchDoesNotExists;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class MatchService {
     private MatchRepository repo;
+    private MatchPlayoutRepository repoPO;
     private GameRepository gameRepository;
     private UserRepository userRepository;
 
@@ -31,10 +34,8 @@ public class MatchService {
     }
 
     public Page<Match> getMatchesForUser(Long userId, int page) throws ExpUserDoesNotExists {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) throw new ExpUserDoesNotExists();
         Pageable pageable = PageRequest.of(page, 10);
-        return repo.getMatchesByPlayer(user.get().getUsername(), pageable);
+        return repo.getMatchesByPlayerId(userId, pageable);
     }
 
     private Match parseToMatch(MatchDTO matchDto){
@@ -44,7 +45,7 @@ public class MatchService {
         match.setEloDifference(matchDto.eloDifference());
         match.setTimeFormat(matchDto.timeFormat());
         match.setGame(gameRepository.getReferenceById(matchDto.gameId()));
-        // TODO Match reference
+        match.setMatchPlayout(repoPO.getReferenceById(matchDto.matchPlayout()));
         return match;
     }
 
@@ -56,5 +57,11 @@ public class MatchService {
         user.setEloRating(user.getEloRating() + match.eloDifference());
         userRepository.save(user);
         return MatchDTO.toDto(res);
+    }
+
+    public Long persistMatchPlayout(MatchPlayout matchPlayout) {
+        matchPlayout.setId(null);
+        MatchPlayout res = repoPO.save(matchPlayout);
+        return res.getId();
     }
 }

@@ -1,6 +1,7 @@
 package com.github.stanislawmalinski.crud_service.controllers;
 
 import com.github.stanislawmalinski.crud_service.models.Match;
+import com.github.stanislawmalinski.crud_service.models.MatchPlayout;
 import com.github.stanislawmalinski.crud_service.response_request.ExpMatchDoesNotExists;
 import com.github.stanislawmalinski.crud_service.response_request.ExpUserDoesNotExists;
 import com.github.stanislawmalinski.crud_service.response_request.MatchDTO;
@@ -13,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/match")
 @AllArgsConstructor
 public class MatchController {
     MatchService service;
@@ -31,12 +32,12 @@ public class MatchController {
         return ResponseEntity.ok(resp);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<Response<Page<Match>>> getMatchesForUser(@PathVariable Long userId) {
         return getMatchesForUser(userId, 0);
     }
 
-    @GetMapping("/user/{id}/{page}")
+    @GetMapping("/user/{userId}/{page}")
     public ResponseEntity<Response<Page<Match>>> getMatchesForUser(@PathVariable Long userId, @PathVariable int page){
         Response<Page<Match>> resp = new Response<>();
         Page<Match> matches;
@@ -60,5 +61,19 @@ public class MatchController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resp);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(Response.of(m));
+    }
+
+    @PostMapping("/persist/playout")
+    public ResponseEntity<Response<Long>> persistPlayedMatchPlayout(@RequestBody MatchPlayout matchPlayout){
+        Response<Long> resp = new Response<>();
+        Long id;
+        try {
+            id = service.persistMatchPlayout(matchPlayout);
+        } catch (Exception e) {
+            resp.setMessage(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resp);
+        }
+        resp.setData(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 }

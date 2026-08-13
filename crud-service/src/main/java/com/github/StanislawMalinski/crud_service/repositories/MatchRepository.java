@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 public interface MatchRepository extends CrudRepository<Match, Long> {
-    Page<Match> getMatchesByPlayer(String user, Pageable pageable);
+    Page<Match> getMatchesByPlayerId(Long id, Pageable pageable);
 }
